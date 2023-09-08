@@ -1,1 +1,1 @@
-docker exec -it e368f8e6e96d bash
+**Project on Flask with using Docker for deploying ML models.**
