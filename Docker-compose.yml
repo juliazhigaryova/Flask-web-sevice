@@ -3,7 +3,7 @@ services:
   flask:
     build: .
     command: gunicorn -b 0.0.0.0:5000 hello:app --reload
-#    command: flask run --host=0.0.0.0
+    container_name: backend-flask
     environment:
       - FLASK_APP=hello.py
       - FLASK_DEBUG=1

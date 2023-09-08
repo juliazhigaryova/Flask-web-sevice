@@ -2,4 +2,5 @@ FROM python:3.7-slim
 
 COPY . /backend
 WORKDIR /backend
-RUN pip install flask gunicorn
+COPY requirements.txt /backend
+RUN pip install -r requirements.txt
