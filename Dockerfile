@@ -4,3 +4,4 @@ COPY . /backend
 WORKDIR /backend
 COPY requirements.txt /backend
 RUN pip install -r requirements.txt
+#RUN pip install Flask-WTF

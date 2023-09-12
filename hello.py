@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify,abort,redirect, url_for
+from flask import Flask, request, jsonify,abort,redirect, url_for,render_template
 from joblib import dump, load
 import numpy as np
 
@@ -50,3 +50,32 @@ def predict(param):
     param = [float(num) for num in param]
     param = np.array(param).reshape(1, -1)
     return knn.predict(param)
+
+from flask_wtf import FlaskForm
+from wtforms import StringField,FileField
+from wtforms.validators import DataRequired
+from werkzeug.utils import secure_filename
+import os
+
+app.config.update(dict(
+    SECRET_KEY="powerful secretkey",
+    WTF_CSRF_SECRET_KEY="a csfr secret key"
+))
+
+class MyForm(FlaskForm):
+    name = StringField('name',validators=[DataRequired()])
+    file = FileField()
+
+@app.route('/submit', methods=['GET', 'POST'])
+def submit():
+    form = MyForm()
+    if form.validate_on_submit():
+        f = form.file.data
+        filename = form.name.data + '.txt'
+        f.save(os.path.join(
+            filename
+        ))
+        return (str(form.name))
+
+    return render_template('submit.html', form=form)
+
